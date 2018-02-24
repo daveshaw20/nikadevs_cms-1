@@ -123,6 +123,7 @@ function _nikadevs_cms_active_layout($vars) {
       unset($layout['regions'][$key]);
     }
     else {
+      $region['settings'] = !isset($region['settings']) || !is_array($region['settings']) ? array() : $region['settings'];
       if (isset($region['settings']['animation']) && !empty($region['settings']['animation'])) {
         $layout['regions'][$key]['attributes']['data-animation'] = $region['settings']['animation'];
       }
@@ -137,8 +138,9 @@ function _nikadevs_cms_active_layout($vars) {
           $layout['regions'][$key]['attributes']['style'] .= str_replace('_', '-', $padding) . ': ' . $region['settings'][$padding] . 'px; ';
         }
       }
+      $region['settings']['tag'] = isset($region['settings']['tag']) ? $region['settings']['tag'] : 'div';
       $layout['regions'][$key]['attributes']['class'][] = isset($region['settings']['class']) ? $region['settings']['class'] : '';
-      $layout['regions'][$key]['settings']['tag'] = isset($region['settings']['tag']) ? ($region['settings']['tag'] == 'none' ? '' : $region['settings']['tag']) : 'div';
+      $layout['regions'][$key]['settings']['tag'] = $region['settings']['tag'] == 'none' ? '' : $region['settings']['tag'];
       if (isset($region['settings']['block_id'])) {
         list($module, $delta) = explode('|', $region['settings']['block_id']);
         $render = _nikadevs_render_block($module, $delta);

@@ -39,7 +39,7 @@
             'row_id' : $(this).closest('.row').attr('id'),
             'name' : $(this).find('h3').text(),
             'attributes' : attributes($(this)),
-            'settings': typeof(settings['regions'][id]['settings']) != 'undefined' ? settings['regions'][id]['settings'] : {}
+            'settings': typeof(settings['regions']) != 'undefined' && typeof(settings['regions'][id]) != 'undefined' && typeof(settings['regions'][id]['settings']) != 'undefined' ? settings['regions'][id]['settings'] : {}
           };
         }
       });

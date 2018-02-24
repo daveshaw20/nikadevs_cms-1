@@ -50,7 +50,7 @@
       $('.delete-saved-shortcode', context).click(function() {
         var id = $(this).parent().find('select').val();
         $(this).parent().find('select option[value="' + id + '"]').remove();
-        $.post(Drupal.settings.basePath + '?q=ajax/nd_visualshortcodes/ajax_backend_delete_saved', {'id': id});
+        $.post(Drupal.settings.basePath + 'ajax/nd_visualshortcodes/ajax_backend_delete_saved', {'id': id});
         return false;
       });
     }
@@ -76,7 +76,7 @@
           $.ajax({
             async: false,
             type: 'POST',
-            url: Drupal.settings.basePath + '?q=ajax/nd_visualshortcodes/ajax_backend_layout',
+            url: Drupal.settings.basePath + 'ajax/nd_visualshortcodes/ajax_backend_layout',
             data: {
               code: shortcode,
               format : $(this).data('format')
@@ -133,7 +133,7 @@
           html = html.replace(/\|LS\|/g, '[').replace(/\|RS\|/g, ']').replace(/\|LF\|/g, '{').replace(/\|RF\|/g, '}');
         }
         // Load the Settings form via default Drupal AJAX request
-        var ajax = new Drupal.ajax(false, '#doesnt-matter', {url : Drupal.settings.basePath + '?q=admin_ajax/nd_visualshortcodes/ajax_backend_shortcode'});
+        var ajax = new Drupal.ajax(false, '#doesnt-matter', {url : Drupal.settings.basePath + 'admin_ajax/nd_visualshortcodes/ajax_backend_shortcode'});
         ajax.beforeSerialize = function (element_settings, options) {
           options['data']['shortcode'] = $this.attr('shortcode');
           options['data']['attrs'] = attrs_array;
@@ -426,7 +426,7 @@
     $('.nd_visualshortcodes_add_link_active').removeClass('nd_visualshortcodes_add_link_active');
     // Mark the link which have opened the Add Form, so will know there to insert the shortcode
     $this.addClass('nd_visualshortcodes_add_link_active');
-    $.post(Drupal.settings.basePath + '?q=ajax/nd_visualshortcodes/shortcodes_list', {format: data_format, shortcode: data_shortcode}, function(result) {
+    $.post(Drupal.settings.basePath + 'ajax/nd_visualshortcodes/shortcodes_list', {format: data_format, shortcode: data_shortcode}, function(result) {
       $('#nd-visualshortcodes-shortcode-add-form').html(result);
       $('#nd-visualshortcodes-shortcode-add-form').dialog('open');
       nd_visualshortcodes_remove_overlay();
@@ -496,7 +496,7 @@
           _settings_to_shortcode_attrs(settings, $('.shortcode-opened-settings'));
           // If this is not child element - upload the preview
           if($('.shortcode-opened-settings > .border-style').hasClass('border-none')) {
-            $.post(Drupal.settings.basePath + '?q=ajax/nd_visualshortcodes/ajax_backend_shortcode_preview', {attrs: settings, shortcode: $('.shortcode-opened-settings').attr('shortcode')}, function(data) {
+            $.post(Drupal.settings.basePath + 'ajax/nd_visualshortcodes/ajax_backend_shortcode_preview', {attrs: settings, shortcode: $('.shortcode-opened-settings').attr('shortcode')}, function(data) {
               if($('.shortcode-opened-settings').attr('shortcode') == 'a_nd_saved') {
                 var textarea = $('.shortcode-opened-settings').parents('.nd_visualshortcodes').next();
                 // Remove processed class from saved shortcode, so new behaviours can be attached
@@ -560,7 +560,7 @@
         "Add": function() {
           nd_visualshortcodes_add_overlay();
           var data_shortcode = $('.nd_visualshortcodes_enabled_links .active').attr('data-shortcode');
-          $.post(Drupal.settings.basePath + '?q=ajax/nd_visualshortcodes/shortcodes_list_add', {shortcode: data_shortcode}, function(result) {
+          $.post(Drupal.settings.basePath + 'ajax/nd_visualshortcodes/shortcodes_list_add', {shortcode: data_shortcode}, function(result) {
             $('.nd-visualshortcodes-added-shortcode').removeClass('nd-visualshortcodes-added-shortcode');
             // If this is main ADD button appear at the begining of the layout
             if($('.nd_visualshortcodes_add_link_active').parent().hasClass('nd-visualshortcodes-main-add')) {
@@ -605,7 +605,7 @@
       },
       buttons: {
         "Save": function() {
-          $.post(Drupal.settings.basePath + '?q=ajax/nd_visualshortcodes/shortcodes_save', {
+          $.post(Drupal.settings.basePath + 'ajax/nd_visualshortcodes/shortcodes_save', {
             'name': $('#nd-visualshortcodes-shortcode-save-form input').val(),
             'code': $('#nd-visualshortcodes-shortcode-save-form textarea').val()
           });
